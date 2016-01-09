@@ -25,9 +25,9 @@ class FlashNotifier
      *
      * @param string $message
      */
-    public function info($message)
+    public function info($message, $title = "")
     {
-        $this->message($message, 'info');
+        $this->message($message, $title, 'info');
 
         return $this;
     }
@@ -38,9 +38,9 @@ class FlashNotifier
      * @param  string $message
      * @return $this
      */
-    public function success($message)
+    public function success($message, $title = "")
     {
-        $this->message($message, 'success');
+        $this->message($message, $title, 'success');
 
         return $this;
     }
@@ -51,9 +51,9 @@ class FlashNotifier
      * @param  string $message
      * @return $this
      */
-    public function error($message)
+    public function error($message, $title = "")
     {
-        $this->message($message, 'error');
+        $this->message($message, $title, 'error');
 
         return $this;
     }
@@ -64,9 +64,9 @@ class FlashNotifier
      * @param  string $message
      * @return $this
      */
-    public function warning($message)
+    public function warning($message, $title = "")
     {
-        $this->message($message, 'warning');
+        $this->message($message, $title, 'warning');
 
         return $this;
     }
@@ -80,10 +80,9 @@ class FlashNotifier
      */
     public function overlay($message, $title = 'Notice')
     {
-        $this->message($message);
+        $this->message($message, $title);
 
         $this->session->flash('flash_notification.overlay', true);
-        $this->session->flash('flash_notification.title', $title);
 
         return $this;
     }
@@ -95,10 +94,11 @@ class FlashNotifier
      * @param  string $level
      * @return $this
      */
-    public function message($message, $level = 'info')
+    public function message($message, $title, $level = 'info')
     {
         $this->session->flash('flash_notification.message', $message);
         $this->session->flash('flash_notification.level', $level);
+        $this->session->flash('flash_notification.title', $title);
 
         return $this;
     }
